@@ -1,0 +1,70 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+
+
+
+// Route::get('/login', 'AdminAuthController@getLogin')->middleware('guest');
+// Route::post('/login', 'AdminAuthController@postLogin');
+// Route::get('/logout', 'AdminAuthController@logout');;
+
+Route::get('/admin', 'Web\DashboardController@index');
+
+
+  
+
+
+
+
+
+Route::get('/', function(){
+    return view('welcome');
+});
+//login
+Route::get('/login')->name('login')->uses('LoginController@login');
+Route::view('forgot_password', 'auth.reset_password')->name('password.reset');
+Route::get('/produk')->name('produk.eccommerce')->uses('Web\ProdukEccoController@index');
+Route::get('/pesanan')->name('pesanan.eccommerce')->uses('Web\PesananEccoController@index');
+Route::get('/kategori')->name('kategori.eccommerce')->uses('Web\KategoriController@index');
+Route::get('/tambah_produk')->name('tambahproduk.eccomerce')->uses('Web\ProdukEccoController@form_produk');
+Route::get('/ongkir')->name('ongkir.eccommerce')->uses('Web\OngkirController@index');
+Route::get('/anggota')->name('anggota.eccommerce')->uses('Web\AnggotaController@index');
+Route::get('/anggota/detail/{id}')->name('anggota.detail')->uses('Web\AnggotaController@getProfileAnggota');
+
+Route::post('/kategori')->name('kategori.create')->uses('Web\KategoriController@create');
+Route::get('/beranda')->name('beranda.eccomerce')->uses('Web\DashboardController@index');
+// produk
+Route::post('/input_produk')->name('inputproduk.eccomerce')->uses('Web\ProdukEccoController@input_produk');
+Route::get('/hapus_produk/{id}')->name('hapusproduk.eccomerce')->uses('Web\ProdukEccoController@hapus_produk');
+Route::get('/view_update_produk/{id}')->name('update.produk')->uses('Web\ProdukEccoController@view_update_produk');
+Route::get('/update_produk/{id}')->name('update.produk')->uses('Web\ProdukEccoController@update');
+//kategori
+Route::get('/hapus_kategori/{id}')->name('hapuskategori.eccomerce')->uses('Web\KategoriController@hapus_kategori');
+Route::get('/update_kategori/{id}')->name('update.kategori')->uses('Web\KategoriController@update');
+//komponen harga
+Route::get('/komponenharga')->name('komponenharga.eccomerce')->uses('Web\KomponenHargaController@index');
+//Banner
+Route::get('/banner')->name('banner.eccomerce')->uses('Web\BannerController@index');
+Route::post('/input_banner')->name('banner.input')->uses('Web\BannerController@input_banner');
+Route::get('/delete_banner/{id}')->name('delete.banner')->uses('Web\BannerController@delete_banner');
+// profil
+Route::get('/profil')->name('profil')->uses('Web\ProfilController@index');
+//user
+Route::get('/user')->name('user.show')->uses('Web\UserAdminController@index');
+//berita
+Route::get('/berita')->name('berita.show')->uses('Web\BeritaController@index');
+Route::get('/tambah_berita')->name('form.berita')->uses('Web\BeritaController@form_berita');
+Route::post('/input_berita')->name('input.berita')->uses('Web\BeritaController@tambah_berita');
+Route::get('/hapus_berita/{id}')->name('hapus.berita')->uses('Web\BeritaController@hapus');
